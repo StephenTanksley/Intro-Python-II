@@ -41,36 +41,46 @@ room['treasure'].s_to = room['narrow']
 
 
 def create_player():
-    initiate_player = input("What is your name :)").capitalize()
+    initiate_player = input("What is your name? - ").capitalize()
     return Player(initiate_player, room['outside'], [])
 
 
 def main():
-    print("\n Welcome to the game. \n")
     player = create_player()
-    print(player)
-    print(f"\n{player.name} is in {player.current_room}")
+    print(f"Welcome to the game, {player.name}.")
+    print(f"You are in {player.current_room}.")
 
     playing = True
     while playing:
         choice = input(
             "Choose a direction - 'n', 's', 'e', 'w', or 'quit' to quit: ").lower()
+
+        # check to see if the input direction is N, S, E, W - If so,
         try:
             if(choice == 'n'):
                 player.current_room = player.current_room.n_to
                 print(player.current_room)
+
             elif(choice == 's'):
                 player.current_room = player.current_room.s_to
                 print(player.current_room)
+
             elif(choice == 'e'):
                 player.current_room = player.current_room.e_to
                 print(player.current_room)
+
             elif(choice == 'w'):
                 player.current_room = player.current_room.w_to
                 print(player.current_room)
 
             elif(choice == 'look'):
                 print(player.current_room.inventory)
+
+            elif(choice == 'grab'):
+                player.inventory.append(player.current_room.inventory)
+                print(player.current_room.inventory)
+                print(player.inventory)
+
             elif(choice == 'quit'):
                 playing = False
 

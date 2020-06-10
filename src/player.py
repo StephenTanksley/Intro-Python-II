@@ -21,5 +21,5 @@ class Player:
     def __repr__(self):
         return f"self.name = {self.name}\n, self.current_room = {self.current_room}"
 
-    # def grab(item):
-    #     self.inventory.append(item)
+    def grab(self, item):
+        self.inventory.append(item)
