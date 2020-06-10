@@ -86,6 +86,12 @@ def main():
                 print('Your inventory: ', player.inventory)
                 print('Room\'s inventory: ', player.current_room.inventory)
 
+            elif(command_string[0] == 'drop'):
+                player.drop(command_string[1])
+                player.current_room.inventory.append(command_string[1])
+                print('Your inventory: ', player.inventory)
+                print('Room\'s inventory: ', player.current_room.inventory)
+
             elif(choice == 'quit'):
                 playing = False
 
