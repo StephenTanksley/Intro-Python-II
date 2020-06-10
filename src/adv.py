@@ -47,6 +47,7 @@ def create_player():
 
 def main():
     player = create_player()
+    print(player.grab)
     print(f"Welcome to the game, {player.name}.")
     print(f"You are in {player.current_room}.")
 
@@ -54,6 +55,9 @@ def main():
     while playing:
         choice = input(
             "Choose a direction - 'n', 's', 'e', 'w', or 'quit' to quit: ").lower()
+
+        command_string = choice.split(' ')
+        print(command_string)
 
         # check to see if the input direction is N, S, E, W - If so,
         try:
@@ -76,10 +80,11 @@ def main():
             elif(choice == 'look'):
                 print(player.current_room.inventory)
 
-            elif(choice == 'grab'):
-                player.inventory.append(player.current_room.inventory)
-                print(player.current_room.inventory)
-                print(player.inventory)
+            elif(command_string[0] == 'grab'):
+                player.grab(command_string[1])
+                player.current_room.inventory.remove(command_string[1])
+                print('Your inventory: ', player.inventory)
+                print('Room\'s inventory: ', player.current_room.inventory)
 
             elif(choice == 'quit'):
                 playing = False

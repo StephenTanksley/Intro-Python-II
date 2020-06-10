@@ -8,7 +8,7 @@ class Player:
     def __init__(self, name, current_room, inventory):
         self.name = name
         self.current_room = current_room
-        self.inventory = inventory  # [items...]
+        self.inventory = inventory
 
         # self.grab():
         # grab something from the room's inventory, place into player inventory
@@ -23,3 +23,10 @@ class Player:
 
     def grab(self, item):
         self.inventory.append(item)
+        print(self.inventory)
+        return self.inventory
+
+    def drop(self, item):
+        self.inventory.remove(item)
+        print(self.inventory)
+        return self.inventory
