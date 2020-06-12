@@ -1,18 +1,16 @@
 from room import Room
 from player import Player
-from item import LightSource
+from item import items
 
 # Declare all the rooms
 
-source = {'torch': LightSource(
-    'torch', 'A simple torch waiting to be lit.', False)}
 
 room = {
     'outside':  Room("Outside Cave Entrance\n",
                      "North of you, the cave mount beckons", []),
 
     'foyer':    Room("Foyer\n", """Dim light filters in from the south. Dusty
-passages run north and east.""", [source['torch']]),
+passages run north and east.""", [items['torch']]),
 
     'overlook': Room("Grand Overlook\n", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
