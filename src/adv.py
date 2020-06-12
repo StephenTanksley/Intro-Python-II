@@ -61,36 +61,41 @@ def main():
 
         # check to see if the input direction is N, S, E, W - If so,
         try:
-            if(choice == 'n'):
-                player.current_room = player.current_room.n_to
-                print(player.current_room)
+            if(choice in ['n', 's', 'e', 'w']):
+                if hasattr(player.current_room, f'{choice}_to'):
+                    player.current_room = getattr(
+                        player.current_room, f'{choice}_to')
+                    print(player.current_room)
 
-            elif(choice == 's'):
-                player.current_room = player.current_room.s_to
-                print(player.current_room)
+            # if(choice == 'n'):
+            #     player.current_room = player.current_room.n_to
+            #     print(player.current_room)
 
-            elif(choice == 'e'):
-                player.current_room = player.current_room.e_to
-                print(player.current_room)
+            # elif(choice == 's'):
+            #     player.current_room = player.current_room.s_to
+            #     print(player.current_room)
 
-            elif(choice == 'w'):
-                player.current_room = player.current_room.w_to
-                print(player.current_room)
+            # elif(choice == 'e'):
+            #     player.current_room = player.current_room.e_to
+            #     print(player.current_room)
+
+            # elif(choice == 'w'):
+            #     player.current_room = player.current_room.w_to
+            #     print(player.current_room)
 
             elif(choice == 'look'):
-                print(player.current_room.inventory)
+                print(
+                    f'\nScanning the room, you discover a {player.current_room.inventory}.\n')
 
             elif(command_string[0] == 'grab'):
+                print(f'\nYou decide to pick up the {command_string[1]}.\n')
                 player.grab(command_string[1])
                 player.current_room.inventory.remove(command_string[1])
-                print('Your inventory: ', player.inventory)
-                print('Room\'s inventory: ', player.current_room.inventory)
 
             elif(command_string[0] == 'drop'):
+                print(f'\nYou decide to pick up the {command_string[1]}.\n')
                 player.drop(command_string[1])
                 player.current_room.inventory.append(command_string[1])
-                print('Your inventory: ', player.inventory)
-                print('Room\'s inventory: ', player.current_room.inventory)
 
             elif(choice == 'quit'):
                 playing = False
