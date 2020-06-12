@@ -39,7 +39,7 @@ room['treasure'].s_to = room['narrow']
 
 
 def create_player():
-    initiate_player = input("What is your name? - ").capitalize()
+    initiate_player = input("\nWhat is your name? - ").capitalize()
     return Player(initiate_player, room['outside'], [])
 
 
