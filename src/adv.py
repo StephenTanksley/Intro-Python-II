@@ -47,9 +47,9 @@ def create_player():
 
 def main():
     player = create_player()
-    print(player.grab)
-    print(f"Welcome to the game, {player.name}.")
-    print(f"You are in {player.current_room}.")
+    print(f'\nWelcome to the game, {player.name}.\n')
+    print(
+        f'\nYou are in {player.current_room.name} \n{player.current_room.description}\n')
 
     playing = True
     while playing:
@@ -57,43 +57,23 @@ def main():
             "Choose a direction - 'n', 's', 'e', 'w', or 'quit' to quit: ").lower()
 
         command_string = choice.split(' ')
-        print(command_string)
+        # print(command_string)
 
-        # check to see if the input direction is N, S, E, W - If so,
         try:
             if(choice in ['n', 's', 'e', 'w']):
                 if hasattr(player.current_room, f'{choice}_to'):
                     player.current_room = getattr(
                         player.current_room, f'{choice}_to')
-                    print(player.current_room)
-
-            # if(choice == 'n'):
-            #     player.current_room = player.current_room.n_to
-            #     print(player.current_room)
-
-            # elif(choice == 's'):
-            #     player.current_room = player.current_room.s_to
-            #     print(player.current_room)
-
-            # elif(choice == 'e'):
-            #     player.current_room = player.current_room.e_to
-            #     print(player.current_room)
-
-            # elif(choice == 'w'):
-            #     player.current_room = player.current_room.w_to
-            #     print(player.current_room)
+                    player.describe_location()
 
             elif(choice == 'look'):
-                print(
-                    f'\nScanning the room, you discover a {player.current_room.inventory}.\n')
+                player.look()
 
             elif(command_string[0] == 'grab'):
-                print(f'\nYou decide to pick up the {command_string[1]}.\n')
                 player.grab(command_string[1])
                 player.current_room.inventory.remove(command_string[1])
 
             elif(command_string[0] == 'drop'):
-                print(f'\nYou decide to pick up the {command_string[1]}.\n')
                 player.drop(command_string[1])
                 player.current_room.inventory.append(command_string[1])
 
