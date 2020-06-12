@@ -1,14 +1,18 @@
 from room import Room
 from player import Player
+from item import LightSource
 
 # Declare all the rooms
+
+source = {'torch': LightSource(
+    'torch', 'A simple torch waiting to be lit.', False)}
 
 room = {
     'outside':  Room("Outside Cave Entrance\n",
                      "North of you, the cave mount beckons", []),
 
     'foyer':    Room("Foyer\n", """Dim light filters in from the south. Dusty
-passages run north and east.""", ["torch"]),
+passages run north and east.""", [source['torch']]),
 
     'overlook': Room("Grand Overlook\n", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
@@ -33,12 +37,6 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
-#
-# Main
-#
-
-# Make a new player object that is currently in the 'outside' room.
-
 
 def create_player():
     initiate_player = input("What is your name? - ").capitalize()
@@ -55,9 +53,7 @@ def main():
     while playing:
         choice = input(
             "Choose a direction - 'n', 's', 'e', 'w', or 'quit' to quit: ").lower()
-
         command_string = choice.split(' ')
-        # print(command_string)
 
         try:
             if(choice in ['n', 's', 'e', 'w']):
@@ -65,6 +61,9 @@ def main():
                     player.current_room = getattr(
                         player.current_room, f'{choice}_to')
                     player.describe_location()
+                elif not hasattr(player.current_room, f'{choice}_to'):
+                    print(
+                        "\nYou search in vain for a way forward. Try another direction.\n")
 
             elif(choice == 'look'):
                 player.look()
@@ -81,18 +80,7 @@ def main():
                 playing = False
 
         except Exception:
-            print("That is not a valid command.")
-
-# Write a loop that:
-#
-# * Prints the current room name
-# * Prints the current description (the textwrap module might be useful here).
-# * Waits for user input and decides what to do.
-#
-# If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
-#
-# If the user enters "q", quit the game.
+            print("Your eyes deceive you, squire. Try again.")
 
 
 if __name__ == '__main__':
