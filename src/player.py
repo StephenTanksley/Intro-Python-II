@@ -10,23 +10,26 @@ class Player:
         self.current_room = current_room
         self.inventory = inventory
 
-        # self.grab():
-        # grab something from the room's inventory, place into player inventory
-        # self.drop()
-        # opposite of grab.
-
     def __str__(self):
-        return f"{self.name}: {self.current_room}"
+        return f'{self.name}: {self.current_room}'
 
     def __repr__(self):
-        return f"self.name = {self.name}\n, self.current_room = {self.current_room}"
+        return f'self.name = {self.name}, self.current_room = {self.current_room}'
 
     def grab(self, item):
+        print(f'\nYou decide to pick up the {item}.\n')
         self.inventory.append(item)
-        print(self.inventory)
-        return self.inventory
+        print(f'Your inventory: {self.inventory}')
 
     def drop(self, item):
+        print(f'\nYou decide to drop the {item}.\n')
         self.inventory.remove(item)
-        print(self.inventory)
-        return self.inventory
+        print(f'Your inventory: {self.inventory}')
+
+    def look(self):
+        print(
+            f'\nScanning the room, you discover a {self.current_room.inventory}.\n')
+
+    def describe_location(self):
+        print(
+            f'\n{self.current_room.name} \n{self.current_room.description}\n')

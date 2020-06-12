@@ -11,4 +11,4 @@ class Room:
         return f"{self.name} : {self.description}"
 
     def __repr__(self):
-        return f"self.name = {self.name}\n self.description = {self.description}"
+        return f"self.name = {self.name} self.description = {self.description}"
