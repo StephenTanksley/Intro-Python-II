@@ -19,16 +19,20 @@ class Player:
     def grab(self, item):
         print(f'\nYou decide to pick up the {item}.\n')
         self.inventory.append(item)
+        self.current_room.inventory.remove(item)
         print(f'Your inventory: {self.inventory}')
 
     def drop(self, item):
         print(f'\nYou decide to drop the {item}.\n')
-        self.inventory.remove(item)
-        print(f'Your inventory: {self.inventory}')
+        if(len(self.inventory) == 0):
+            print("Your satchel is empty already...")
+        else:
+            self.inventory.remove(item)
+            print(f'Your inventory: {self.inventory}')
 
     def look(self):
         print(
-            f'\nScanning the room, you discover a {self.current_room.inventory}.\n')
+            f'\nScanning the room, you discover a {self.current_room.inventory[0].name}.\n')
 
     def describe_location(self):
         print(
