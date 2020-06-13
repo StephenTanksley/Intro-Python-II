@@ -1,44 +1,44 @@
-from room import Room
+from room import rooms
 from player import Player
 from item import items
 
 # Declare all the rooms
 
 
-room = {
-    'outside':  Room("Outside Cave Entrance\n",
-                     "North of you, the cave mount beckons", []),
+# room = {
+#     'outside':  Room("Outside Cave Entrance\n",
+#                      "North of you, the cave mount beckons", []),
 
-    'foyer':    Room("Foyer\n", """Dim light filters in from the south. Dusty
-passages run north and east.""", [items['torch']]),
+#     'foyer':    Room("Foyer\n", """Dim light filters in from the south. Dusty
+# passages run north and east.""", [items['torch']]),
 
-    'overlook': Room("Grand Overlook\n", """A steep cliff appears before you, falling
-into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm.""", ["rope"]),
+#     'overlook': Room("Grand Overlook\n", """A steep cliff appears before you, falling
+# into the darkness. Ahead to the north, a light flickers in
+# the distance, but there is no way across the chasm.""", ["rope"]),
 
-    'narrow':   Room("Narrow Passage\n", """The narrow passage bends here from west
-to north. The smell of gold permeates the air.""", []),
+#     'narrow':   Room("Narrow Passage\n", """The narrow passage bends here from west
+# to north. The smell of gold permeates the air.""", []),
 
-    'treasure': Room("Treasure Chamber\n", """You've found the long-lost treasure
-chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south.""", []),
-}
+#     'treasure': Room("Treasure Chamber\n", """You've found the long-lost treasure
+# chamber! Sadly, it has already been completely emptied by
+# earlier adventurers. The only exit is to the south.""", []),
+# }
 
-# Link rooms together
+# # Link rooms together
 
-room['outside'].n_to = room['foyer']
-room['foyer'].s_to = room['outside']
-room['foyer'].n_to = room['overlook']
-room['foyer'].e_to = room['narrow']
-room['overlook'].s_to = room['foyer']
-room['narrow'].w_to = room['foyer']
-room['narrow'].n_to = room['treasure']
-room['treasure'].s_to = room['narrow']
+# room['outside'].n_to = room['foyer']
+# room['foyer'].s_to = room['outside']
+# room['foyer'].n_to = room['overlook']
+# room['foyer'].e_to = room['narrow']
+# room['overlook'].s_to = room['foyer']
+# room['narrow'].w_to = room['foyer']
+# room['narrow'].n_to = room['treasure']
+# room['treasure'].s_to = room['narrow']
 
 
 def create_player():
     initiate_player = input("\nWhat is your name? - ").capitalize()
-    return Player(initiate_player, room['outside'], [])
+    return Player(initiate_player, rooms['outside'], [])
 
 
 def main():
@@ -50,7 +50,7 @@ def main():
     playing = True
     while playing:
         choice = input(
-            "Choose a direction - 'n', 's', 'e', 'w', or 'quit' to quit: ").lower()
+            "\tChoose a direction - 'n', 's', 'e', 'w', or 'quit' to quit: ").lower()
         command_string = choice.split(' ')
 
         try:
@@ -63,7 +63,8 @@ def main():
                     print(
                         "\nYou search in vain for a way forward. Try another direction.\n")
 
-            elif(choice == 'look'):
+            elif(command_string[0] == 'look'):
+                player.describe_location()
                 player.look()
 
             elif(command_string[0] == 'grab'):
@@ -77,7 +78,9 @@ def main():
             elif(choice == 'quit'):
                 playing = False
 
-        except Exception:
+        except Exception as inst:
+            print('error type: ', type(inst))
+            print('more information: ', inst.args)
             print("Your eyes deceive you, squire. Try again.")
 
 
