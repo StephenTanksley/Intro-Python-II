@@ -12,6 +12,7 @@ class Item:
 
 class LightSource(Item):
     def __init__(self, name, description, illuminated):
+        super().__init__(name, description)
         self.illuminated = illuminated
 
     def __str__(self):
